@@ -64,7 +64,7 @@ function PersonalInfo({
     return <FieldGroup>
         <FieldTitle className="text-2xl">Personal Information</FieldTitle>
         <Field>
-            <div id="name-input" className="flex flex-col sm:flex gap-4">
+            <div id="name-input" className="flex flex-col sm:flex-row gap-4">
                 <div className="flex flex-col gap-2">
                     <FieldLabel htmlFor="first-name">
                         First Name
