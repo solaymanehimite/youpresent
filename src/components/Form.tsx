@@ -2,10 +2,8 @@
 
 import { FormData } from "@/lib/types"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
     Field,
-    FieldDescription,
     FieldGroup,
     FieldLabel,
     FieldSet,
@@ -15,6 +13,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
 import ThemeSelector from "./form/ThemeSelector";
+import { supabase } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 
 export function Form() {
     const [formData, setFormData] = useState<FormData>({
@@ -23,13 +23,16 @@ export function Form() {
         number: "",
         dueDate: new Date(),
 
+        presentationTitle: "",
         presentationDescription: "",
         slides: 5,
+
+        theme: "White",
         isAnimated: false,
-        theme: "black"
     });
 
     const [currentStep, setCurrentStep] = useState<number>(0);
+    const router = useRouter();
 
     return (
         <div className="w-full max-w-xl">
@@ -38,14 +41,25 @@ export function Form() {
                     <FieldSet>
                         {currentStep == 0 && <PersonalInfo formData={formData} setFormData={setFormData} />}
                         {currentStep == 1 && <PresentationInfo formData={formData} setFormData={setFormData} />}
-                        {currentStep == 2 && <ThemeSelector />}
+                        {currentStep == 2 && <ThemeSelector formData={formData} setFormData={setFormData} />}
                     </FieldSet>
                     <Field orientation="horizontal" className="mt-auto w-full flex justify-between">
                         <Button type="button" onClick={_ => setCurrentStep(prev => prev - 1)}
                             disabled={currentStep == 0} variant="outline">
                             Back
                         </Button>
-                        <Button type="button" onClick={() => setCurrentStep(Math.min(currentStep + 1, 2))}>
+                        <Button type="button" onClick={() => {
+                            if (currentStep < 2) {
+                                setCurrentStep(currentStep + 1)
+                            } else {
+                                const send = async () => {
+                                    const { error } = await supabase.from("requests").insert(formData);
+                                    console.log(error);
+                                    router.push("/");
+                                }
+                                send();
+                            }
+                        }}>
                             {currentStep < 2 ? "Next" : "Submit"}
                         </Button>
                     </Field>
@@ -122,6 +136,8 @@ function PresentationInfo({
                 Presentation Title
             </FieldLabel>
             <Input
+                value={formData.presentationTitle}
+                onChange={(e) => setFormData({ ...formData, presentationTitle: e.target.value, })}
                 id="presentation-title"
                 placeholder="RAM & ROM"
             />
@@ -131,15 +147,17 @@ function PresentationInfo({
                 What's you're Presenation about?
             </FieldLabel>
             <Textarea
+                value={formData.presentationDescription}
+                onChange={(e) => setFormData({ ...formData, presentationDescription: e.target.value, })}
                 id="presentation-description"
                 placeholder="What are RAM and ROM?...."
             />
-            {/* <FieldDescription>
-                *more than 100 characters
-            </FieldDescription> */}
         </Field>
         <Field orientation="horizontal">
-            <Input type="number" className="w-30" defaultValue={5} />
+            <Input type="number" className="w-30"
+                value={formData.slides}
+                onChange={(e) => setFormData({ ...formData, slides: e.target.value, })}
+            />
             <FieldLabel>
                 Number of Slides
             </FieldLabel>

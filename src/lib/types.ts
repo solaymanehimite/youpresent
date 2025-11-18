@@ -4,8 +4,10 @@ export interface FormData {
     number: string;
     dueDate: Date;
 
+    presentationTitle: string;
     presentationDescription: string;
-    isAnimated: boolean;
     slides: number;
+
     theme: string;
+    isAnimated: boolean;
 }
