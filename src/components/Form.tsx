@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useState } from "react"
+import ThemeSelector from "./form/ThemeSelector";
 
 export function Form() {
     const [formData, setFormData] = useState<FormData>({
@@ -31,20 +32,21 @@ export function Form() {
     const [currentStep, setCurrentStep] = useState<number>(0);
 
     return (
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-xl">
             <form>
-                <FieldGroup className="h-96">
+                <FieldGroup>
                     <FieldSet>
                         {currentStep == 0 && <PersonalInfo formData={formData} setFormData={setFormData} />}
                         {currentStep == 1 && <PresentationInfo formData={formData} setFormData={setFormData} />}
+                        {currentStep == 2 && <ThemeSelector />}
                     </FieldSet>
                     <Field orientation="horizontal" className="mt-auto w-full flex justify-between">
                         <Button type="button" onClick={_ => setCurrentStep(prev => prev - 1)}
                             disabled={currentStep == 0} variant="outline">
                             Back
                         </Button>
-                        <Button type="button" onClick={() => setCurrentStep(Math.min(currentStep + 1, 1))}>
-                            {currentStep < 1 ? "Next" : "Submit"}
+                        <Button type="button" onClick={() => setCurrentStep(Math.min(currentStep + 1, 2))}>
+                            {currentStep < 2 ? "Next" : "Submit"}
                         </Button>
                     </Field>
                 </FieldGroup>
@@ -116,22 +118,25 @@ function PresentationInfo({
     return <FieldGroup>
         <FieldTitle className="text-2xl">Customize You're Presentation</FieldTitle>
         <Field>
+            <FieldLabel htmlFor="presentation-title">
+                Presentation Title
+            </FieldLabel>
+            <Input
+                id="presentation-title"
+                placeholder="RAM & ROM"
+            />
+        </Field>
+        <Field>
             <FieldLabel htmlFor="presentation-description">
-                What's you're Presenation about?*
+                What's you're Presenation about?
             </FieldLabel>
             <Textarea
                 id="presentation-description"
-                placeholder="computer parts and their uses...."
+                placeholder="What are RAM and ROM?...."
             />
-            <FieldDescription>
+            {/* <FieldDescription>
                 *more than 100 characters
-            </FieldDescription>
-        </Field>
-        <Field orientation="horizontal">
-            <Checkbox id="enable-animations" />
-            <FieldLabel htmlFor="enable-animations">
-                Animations and Transitions
-            </FieldLabel>
+            </FieldDescription> */}
         </Field>
         <Field orientation="horizontal">
             <Input type="number" className="w-30" defaultValue={5} />
