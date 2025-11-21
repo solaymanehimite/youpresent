@@ -35,9 +35,9 @@ export function Form() {
     const router = useRouter();
 
     return (
-        <div className="w-full max-w-xl">
-            <form>
-                <FieldGroup>
+        <div className="w-full max-w-xl min-h-[80vh] sm:min-h-fit">
+            <form className="bg-linear-to-r min-h-[80vh] sm:min-h-fit from-purple-100 to-orange-100 rounded-xl p-5">
+                <FieldGroup className="min-h-[80vh] sm:min-h-fit">
                     <FieldSet>
                         {currentStep == 0 && <PersonalInfo formData={formData} setFormData={setFormData} />}
                         {currentStep == 1 && <PresentationInfo formData={formData} setFormData={setFormData} />}
@@ -77,8 +77,8 @@ function PersonalInfo({
     formData: FormData
     setFormData: any
 }) {
-    return <FieldGroup>
-        <FieldTitle className="text-2xl">Personal Information</FieldTitle>
+    return <FieldGroup className="items-center sm:items-start">
+        <FieldTitle className="text-3xl text-center sm:text-2xl">Personal Information</FieldTitle>
         <Field>
             <div id="name-input" className="flex flex-col sm:flex-row gap-4">
                 <div className="flex flex-col gap-2">
