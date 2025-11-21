@@ -123,6 +123,23 @@
 }
 
 h1 {
-    font-family: var(--font-instrument);
+    font-family: 'Instrument Serif';
     @apply text-[3.8rem] sm:text-7xl;
+}
+
+.animated-background {
+    background-size: 200%;
+    animation: animated-gradient 5s ease infinite;
+}
+
+@keyframes animated-gradient {
+
+    0%,
+    100% {
+        background-position: 20% 50%;
+    }
+
+    50% {
+        background-position: 80% 50%;
+    }
 }

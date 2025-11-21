@@ -9,12 +9,15 @@ export function BentoGrid() {
             <div className='flex items-end justify-center pb-12'>
                 <div className='columns-1 gap-4 px-8 sm:columns-3'>
                     {[
+                        '/mock_presentations/rose2.png',
                         '/mock_presentations/white.png',
                         '/mock_presentations/space.png',
+                        '/mock_presentations/chocolate.png',
                         '/mock_presentations/pistachio.png',
                         '/mock_presentations/white2.png',
-                        '/mock_presentations/space2.png',
+                        '/mock_presentations/rose.png',
                         '/mock_presentations/gold.png',
+                        '/mock_presentations/chocolate2.png',
                     ].map((imgSrc, index) => {
                         return (
                             <InView
