@@ -124,5 +124,5 @@
 
 h1 {
     font-family: var(--font-instrument);
-    @apply text-7xl;
+    @apply text-[3.8rem] sm:text-7xl;
 }

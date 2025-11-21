@@ -13,7 +13,7 @@ export default function Home() {
                         right
                     </span> way
                 </h1>
-                <p className="w-md text-center">
+                <p className="w-sm sm:w-md text-center">
                     PresentNow gives you the tools and inspiration to craft stunning, unique presentations with ease.
                 </p>
                 <div className="flex gap-2">
