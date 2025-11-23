@@ -15,6 +15,7 @@ import { useState } from "react"
 import ThemeSelector from "./form/ThemeSelector";
 import { supabase } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import { Counter } from "./ui/shadcn-io/counter";
 
 export function Form() {
     const [formData, setFormData] = useState<FormData>({
@@ -28,7 +29,7 @@ export function Form() {
         slides: 5,
 
         theme: "White",
-        isAnimated: false,
+        isAnimated: true,
     });
 
     const [currentStep, setCurrentStep] = useState<number>(0);
@@ -154,12 +155,11 @@ function PresentationInfo({
             />
         </Field>
         <Field orientation="horizontal">
-            <Input type="number" className="w-30"
-                value={formData.slides}
-                onChange={(e) => setFormData({ ...formData, slides: e.target.value, })}
+            <Counter
+                number={formData.slides}
+                setNumber={(newNumber) => setFormData({ ...formData, slides: Math.min(Math.max(2, newNumber), 7) })}
             />
-            <FieldLabel>
-                Number of Slides
+            <FieldLabel> Number of Slides
             </FieldLabel>
         </Field>
     </FieldGroup>

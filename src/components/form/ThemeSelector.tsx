@@ -36,9 +36,11 @@ export default function ThemeSelector({
             }
             </div>
             <Field orientation="horizontal">
-                <Checkbox id="enable-animations" checked={formData.isAnimated} onCheckedChange={e => setFormData(
-                    { ...formData, isAnimated: e.valueOf }
-                )} />
+                <Checkbox id="enable-animations"
+                    checked={formData.isAnimated}
+                    onCheckedChange={e => {
+                        setFormData({ ...formData, isAnimated: e.valueOf() });
+                    }} />
                 <FieldLabel htmlFor="enable-animations">
                     Animated
                 </FieldLabel>

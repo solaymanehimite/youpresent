@@ -2,6 +2,7 @@
 import { supabase } from "@/lib/supabase/client";
 import { ArrowRight, Check, CircleDashed, CirclePlay, Loader, Square } from "lucide-react";
 import { useState } from "react";
+import RequestDialog from "./RequestDialog";
 
 export default function RequestCard({
     db_request
@@ -15,9 +16,9 @@ export default function RequestCard({
 
     return (
         <div className="border border-neutral-200 bg-neutral-100 h-50 flex flex-col rounded-md p-3">
-            <div className="flex gap-5 w-full items-center">
+            <div className="flex gap-5 w-full items-center justify-between">
                 <h2 className="text-3xl font-serif">{request.presentationTitle}</h2>
-                <ArrowRight className="ml-auto" />
+                <RequestDialog request={request} />
             </div>
             <p className="opacity-50">Due at <span className="text-red-500">{request.dueDate}</span></p>
             <div className="flex gap-5 mt-auto items-center">
